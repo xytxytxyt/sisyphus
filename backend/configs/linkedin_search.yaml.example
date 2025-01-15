@@ -1,0 +1,10 @@
+# https://linkedin-api.readthedocs.io/en/latest/api.html#linkedin_api.Linkedin.search_jobs
+'senior software engineer':
+  config_name: senior software engineer
+  keywords: senior software engineer
+  experience: ['4']
+  job_type: ['F']
+  remote: ['2']
+  listed_at: 604800  # one week ago
+  min_salary: 180000
+  exclude: []
