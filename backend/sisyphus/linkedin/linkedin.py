@@ -73,6 +73,7 @@ def initialize_linkedin():
     return Linkedin(username=credentials.username, password=credentials.password)
 
 
+@cache
 def get_search_configs() -> dict[str, SearchConfig]:
     with open(search_config_path) as f:
         configs_yaml_dict = yaml.safe_load(f.read())
@@ -84,6 +85,15 @@ def get_search_configs() -> dict[str, SearchConfig]:
         return configs
 
 
+def reload_search_configs():
+    get_search_configs.cache_clear()
+    get_search_configs()
+
+
+def get_search_config(name: str) -> SearchConfig | None:
+    return get_search_configs().get(name)
+
+
 def search_jobs(linkedin: Linkedin, config: SearchConfig) -> List[dict]:
     kwargs = config.to_dict()
     if "limit" not in kwargs:
@@ -91,10 +101,5 @@ def search_jobs(linkedin: Linkedin, config: SearchConfig) -> List[dict]:
     return linkedin.search_jobs(**kwargs)
 
 
-def get_jobs(linkedin: Linkedin, config: SearchConfig) -> List[dict]:
-    search_jobs_results = search_jobs(linkedin, config)
-    # jobs = [linkedin.get_job(result['trackingUrn'] for result in search_jobs_results)]
-    job_id = search_jobs_results[0]["trackingUrn"].split(":")[-1]
-    print(f"getting job {job_id}")
-    jobs = [linkedin.get_job(job_id)]
-    return jobs
+def get_job(linkedin: Linkedin, job_id: str) -> dict:
+    return linkedin.get_job(job_id)

@@ -2,7 +2,6 @@ import json
 
 from sisyphus.linkedin.linkedin import (
     get_credentials,
-    get_jobs,
     get_search_configs,
     initialize_linkedin,
     search_jobs,
@@ -29,19 +28,8 @@ def test_search_jobs():
     configs = get_search_configs()
     assert len(configs) > 0
     config = configs[list(configs.keys())[0]]
-    print(f'searching for {config.config_name}')
+    print(f"searching for {config.config_name}")
     linkedin = initialize_linkedin()
     results = search_jobs(linkedin, config)
-    assert len(results) > 0
-    print(json.dumps(results, indent=4))
-
-
-def test_get_jobs():
-    configs = get_search_configs()
-    assert len(configs) > 0
-    config = configs[list(configs.keys())[0]]
-    print(f'searching for {config.config_name}')
-    linkedin = initialize_linkedin()
-    results = get_jobs(linkedin, config)
     assert len(results) > 0
     print(json.dumps(results, indent=4))

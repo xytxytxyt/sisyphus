@@ -11,6 +11,7 @@ beautifulsoup4 = "^4.12.3"
 dataclasses-json = "^0.6.7"
 linkedin-api = "^2.3.1"
 pyyaml = "^6.0.2"
+fastapi = {extras = ["standard"], version = "^0.115.6"}
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.1.2"
