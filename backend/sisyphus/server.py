@@ -60,10 +60,29 @@ async def linkedin_search_jobs(search_config_name: str) -> list[JobSearchResult]
     return api_results
 
 
-@app.get("/linkedin/job/{job_id}")
-async def linkedin_get_job(job_id: str):
+class LinkedInCompany(BaseModel):
+    id: str
+    name: str
+    url: str
+
+
+@app.get("/linkedin/job/{job_id}/company")
+async def linkedin_get_company_from_job(job_id: str) -> LinkedInCompany:
+    """
+    Given a LinkedIn job id, get company information
+    """
     linkedin = initialize_linkedin()
-    return get_job(
+    job = get_job(
         linkedin=linkedin,
         job_id=job_id,
     )
+    company_details = job["companyDetails"]
+    company_resolution_result = company_details[list(company_details.keys())[0]][
+        "companyResolutionResult"
+    ]
+    company = LinkedInCompany(
+        id=company_resolution_result["entityUrn"].split(":")[-1],
+        name=company_resolution_result["name"],
+        url=company_resolution_result["url"],
+    )
+    return company
