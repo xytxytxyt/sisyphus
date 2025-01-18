@@ -2,10 +2,9 @@
 .flexbox-container {
   display: flex;
   flex-direction: row;
-}
-
-#container {
-  height: 100%;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
 }
 
 #jobsources {
@@ -15,10 +14,10 @@
 
 #jobinfo {
   height: 100%;
-  width: 45%;
+  width: 40%;
 }
 
 #applicationinfo {
   height: 100%;
-  width: 45%;
+  width: 30%;
 }

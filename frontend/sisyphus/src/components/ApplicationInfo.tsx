@@ -2,20 +2,21 @@ import { useEffect, useState } from 'react';
 
 import { Job } from '../App';
 import '../App.css';
+import { getGoogleSearchUrl } from '../utils/utils';
 
 interface ApplicationInfoProps {
     currentJob: Job | undefined
 }
 
 function getCareersUrl(companyName: string): string {
-    let query = `${companyName} careers`;
-    let careersUrl = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
+    let query = `"${companyName}" careers`;
+    let careersUrl = getGoogleSearchUrl(query);
     return careersUrl;
 }
 
 function getValuesUrl(companyName: string): string {
-    let query = `${companyName} values`;
-    let valuesUrl = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
+    let query = `"${companyName}" values`;
+    let valuesUrl = getGoogleSearchUrl(query);
     return valuesUrl;
 }
 
@@ -39,16 +40,14 @@ export default function JobSources(props: ApplicationInfoProps) {
         <div id="applicationinfo">
             <h1>Application Info</h1>
 
-            <p>
-                Consider:<br />
-                <ul>
-                    <li>requirements fit</li>
-                    <li>responsibilities fit</li>
-                    <li>keywords fit</li>
-                    <li>mission fit</li>
-                    <li>values fit</li>
-                </ul>
-            </p>
+            <p>Consider:</p>
+            <ul>
+                <li>requirements fit</li>
+                <li>responsibilities fit</li>
+                <li>keywords fit</li>
+                <li>mission fit</li>
+                <li>values fit</li>
+            </ul>
 
             <CompanyCareersInfo
                 companyName={currentJobLocalCopy.companyName}

@@ -35,6 +35,7 @@ export default function JobSources(props: JobSourcesProps) {
 
             <div>
                 <h2>LinkedIn</h2>
+                <p>Under construction</p>
             </div>
 
             <div>
@@ -79,10 +80,6 @@ export default function JobSources(props: JobSourcesProps) {
                         }
                     }}
                 />
-            </div>
-
-            <div>
-                <h2>Welcome to the Jungle</h2>
             </div>
 
             <div>

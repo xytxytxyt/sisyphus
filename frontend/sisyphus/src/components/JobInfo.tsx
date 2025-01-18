@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 
 import { Job } from '../App';
 import '../App.css';
+import { getGoogleSearchUrl } from '../utils/utils';
 
 interface JobInfoProps {
     currentJob: Job | undefined
@@ -9,8 +10,14 @@ interface JobInfoProps {
 
 function getFundingInfoUrl(companyName: string): string {
     let query = `site:techcrunch.com OR site:venturebeat.com "${companyName}" funding raise round seed`;
-    let fundingUrl = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
+    let fundingUrl = getGoogleSearchUrl(query);
     return fundingUrl;
+}
+
+function getGlassdoorSearchUrl(companyName: string): string {
+    let query = `site:glassdoor.com "${companyName}" reviews`
+    let glassdoorSearchUrl = getGoogleSearchUrl(query);
+    return glassdoorSearchUrl;
 }
 
 export default function JobSources(props: JobInfoProps) {
@@ -41,7 +48,9 @@ export default function JobSources(props: JobInfoProps) {
                 companyName={currentJobLocalCopy.companyName}
             />
 
-            <p>Glassdoor page (coming soon)</p>
+            <GlassdoorSearch
+                companyName={currentJobLocalCopy.companyName}
+            />
         </div>
     )
 }
@@ -58,6 +67,14 @@ function CompanyFundingInfo({ companyName }: { companyName: string }) {
     return (
         <p>
             <a href={getFundingInfoUrl(companyName)}>Funding information</a>
+        </p>
+    )
+}
+
+function GlassdoorSearch({ companyName }: { companyName: string }) {
+    return (
+        <p>
+            <a href={getGlassdoorSearchUrl(companyName)}>Glassdoor search</a>
         </p>
     )
 }
