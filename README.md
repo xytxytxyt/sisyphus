@@ -5,3 +5,5 @@ This is a simple web app that helps me vet jobs and companies during a job searc
 There has been no attempt to make this production-ready.
 
 There are commands in Makefiles to run the frontend and backend in dev mode.
+
+FastAPI comes by default with Swagger: http://127.0.0.1:8000/docs
