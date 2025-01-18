@@ -1,8 +1,6 @@
 import { Dispatch, useState } from 'react';
-import { Job } from '../App';
+import { Job, backendHost } from '../App';
 import '../App.css';
-
-const backendHost = 'http://127.0.0.1:8000';
 
 interface JobSourcesProps {
     setCurrentJob: Dispatch<Job | undefined>
@@ -14,7 +12,7 @@ interface LinkedInJobCompanySearchResponse {
     url: string,
 }
 
-function getLinkedInJobIdFromJobUrl(url: string) {
+function getLinkedInJobIdFromJobUrl(url: string): string {
     let withoutQueryString = url.split('?')[0].trim();
     if (withoutQueryString.slice(-1) === '/') {
         withoutQueryString = withoutQueryString.slice(0, -1);
@@ -27,6 +25,7 @@ function getLinkedInJobIdFromJobUrl(url: string) {
 export default function JobSources(props: JobSourcesProps) {
     let setCurrentJob = props.setCurrentJob
 
+    const [linkedInJobUrl, setLinkedInJobUrl] = useState<string>();
     const [linkedInJobId, setLinkedInJobId] = useState<string>();
     const [generalCompanyName, setGeneralCompanyName] = useState<string>();
 
@@ -48,7 +47,9 @@ export default function JobSources(props: JobSourcesProps) {
                         if (e.target.value.trim().length == 0) {
                             setLinkedInJobId(undefined);
                         } else {
-                            let linkedInJobId = getLinkedInJobIdFromJobUrl(e.target.value);
+                            let linkedInJobUrl = e.target.value;
+                            let linkedInJobId = getLinkedInJobIdFromJobUrl(linkedInJobUrl);
+                            setLinkedInJobUrl(linkedInJobUrl);
                             setLinkedInJobId(linkedInJobId);
                         }
                     }}
@@ -69,6 +70,7 @@ export default function JobSources(props: JobSourcesProps) {
                                     return response.json() as Promise<LinkedInJobCompanySearchResponse>;
                                 }).then(linkedInJobCompanySearchResponse => {
                                     setCurrentJob({
+                                        linkedInJobUrl: linkedInJobUrl,
                                         linkedInJobId: linkedInJobId,
                                         companyName: linkedInJobCompanySearchResponse.name,
                                     })
