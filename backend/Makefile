@@ -12,3 +12,7 @@ check-types:
 
 test:
 	pytest -svv tests
+
+# remember to activate virtualenv
+run:
+	fastapi dev sisyphus/server.py
