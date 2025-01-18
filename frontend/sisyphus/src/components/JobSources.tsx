@@ -28,6 +28,7 @@ export default function JobSources(props: JobSourcesProps) {
     const [linkedInJobUrl, setLinkedInJobUrl] = useState<string>();
     const [linkedInJobId, setLinkedInJobId] = useState<string>();
     const [generalCompanyName, setGeneralCompanyName] = useState<string>();
+    const [linkedInExternalWaiting, setLinkedInExternalWaiting] = useState<boolean>(false);
 
     return (
         <div id="jobsources">
@@ -40,7 +41,7 @@ export default function JobSources(props: JobSourcesProps) {
 
             <div>
                 <h2>LinkedIn External</h2>
-                <input
+                <p><input
                     name='linkedInJobUrl'
                     type='text'
                     defaultValue='Job URL'
@@ -59,7 +60,8 @@ export default function JobSources(props: JobSourcesProps) {
                             if (linkedInJobId === undefined) {
                                 setCurrentJob(undefined);
                             } else {
-                                console.log(`Looking up company for LinkedIn job id ${linkedInJobId}`)
+                                console.log(`Looking up company for LinkedIn job id ${linkedInJobId}`);
+                                setLinkedInExternalWaiting(true);
                                 fetch(
                                     `${backendHost}/linkedin/job/${linkedInJobId}/company`,
                                     {
@@ -75,11 +77,13 @@ export default function JobSources(props: JobSourcesProps) {
                                         linkedInJobId: linkedInJobId,
                                         companyName: linkedInJobCompanySearchResponse.name,
                                     })
+                                    setLinkedInExternalWaiting(false);
                                 })
                             }
                         }
                     }}
-                />
+                />{linkedInExternalWaiting && ' ⏳'}</p>
+
             </div>
 
             <div>
