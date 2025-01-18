@@ -1,1 +1,1 @@
-to use, remove the `.example` from the filenames
+To use, remove the `.example` from the filenames.
