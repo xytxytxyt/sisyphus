@@ -42,10 +42,10 @@ async def linkedin_search_configs() -> LinkedInSearchConfigs:
 class JobSearchResult(BaseModel):
     id: str
     title: str
-    poster_id: str
+    poster_id: str | None
 
 
-@app.post("/linkedin/search_jobs/{search_config_name}")
+@app.get("/linkedin/search_jobs/{search_config_name}")
 async def linkedin_search_jobs(search_config_name: str) -> list[JobSearchResult]:
     """
     Given a LinkedIn search config name, performs a search with that config and returns results

@@ -26,11 +26,11 @@ export default function JobSources(props: ApplicationInfoProps) {
     let currentJob = props.currentJob;
     useEffect(
         () => {
-            console.log('Received new job ', currentJob);
+            console.log('Received new job; processing for application: ', currentJob);
             setCurrentJobLocalCopy(currentJob);
         },
         [props],
-    )
+    );
 
     if (currentJobLocalCopy === undefined) {
         return (<div id="applicationinfo" />)

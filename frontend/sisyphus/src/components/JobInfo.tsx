@@ -20,17 +20,17 @@ function getGlassdoorSearchUrl(companyName: string): string {
     return glassdoorSearchUrl;
 }
 
-export default function JobSources(props: JobInfoProps) {
+export default function JobInfo(props: JobInfoProps) {
     const [currentJobLocalCopy, setCurrentJobLocalCopy] = useState<Job>();
 
     let currentJob = props.currentJob;
     useEffect(
         () => {
-            console.log('Received new job ', currentJob);
+            console.log('Received new job; processing for info: ', currentJob);
             setCurrentJobLocalCopy(currentJob);
         },
         [props],
-    )
+    );
 
     if (currentJobLocalCopy === undefined) {
         return (<div id="jobinfo" />)
