@@ -97,7 +97,7 @@ def get_search_config(name: str) -> SearchConfig | None:
 def search_jobs(linkedin: Linkedin, config: SearchConfig) -> List[dict]:
     kwargs = config.to_dict()
     if "limit" not in kwargs:
-        kwargs["limit"] = 10
+        kwargs["limit"] = 20
     return linkedin.search_jobs(**kwargs)
 
 
