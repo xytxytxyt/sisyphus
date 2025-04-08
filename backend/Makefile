@@ -15,4 +15,4 @@ test:
 
 # remember to activate virtualenv
 run:
-	fastapi dev sisyphus/server.py
+	fastapi dev sisyphus/server.py --port 8000
